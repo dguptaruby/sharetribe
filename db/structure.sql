@@ -1145,7 +1145,9 @@ CREATE TABLE `payment_settings` (
   `payment_process` varchar(64) DEFAULT NULL,
   `commission_from_seller` int(11) DEFAULT NULL,
   `minimum_price_cents` int(11) DEFAULT NULL,
+  `minimum_price_currency` text,
   `minimum_transaction_fee_cents` int(11) DEFAULT NULL,
+  `minimum_transaction_fee_currency` text,
   `confirmation_after_days` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -1598,7 +1600,8 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-01 15:51:38
+-- Dump completed on 2016-11-01 16:51:41
+
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3197,3 +3200,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161101124317');
 
 INSERT INTO schema_migrations (version) VALUES ('20161101124829');
 
+INSERT INTO schema_migrations (version) VALUES ('20161101133602');
