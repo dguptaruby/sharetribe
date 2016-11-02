@@ -9,6 +9,9 @@ services:
       - convox.idle.timeout=60
     ports:
       - "443:3000"
-    env_file: .env
-    environment:
-      - RAILS_ENV=production
+  worker:
+    build: .
+    labels:
+      - convox.deployment.minimum=0
+      - convox.deployment.maximum=200
+    command: QUEUES=default,paperclip,mailers bundle exec rake jobs:work

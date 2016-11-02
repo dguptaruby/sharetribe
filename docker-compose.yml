@@ -5,8 +5,6 @@ services:
     ports:
       - "3000:3000"
     env_file: .env
-    environment:
-      - RAILS_ENV=staging
   memcached:
     image: memcached:latest
 networks:
