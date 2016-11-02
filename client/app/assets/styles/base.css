@@ -22,3 +22,21 @@ body {
 a {
   text-decoration: none;
 }
+
+.noscript {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 0.75em 0em;
+  height: 6em;
+  background: #c81f1f;
+  color: white;
+}
+
+.noscript .wrapper,
+.noscript .wrapper h2,
+.noscript .wrapper p {
+  background: #c81f1f;
+  background-color: red;
+  color: white;
+}
