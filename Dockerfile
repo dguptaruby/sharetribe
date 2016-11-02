@@ -88,6 +88,12 @@ USER app
 
 ENV DATABASE_URL "mysql2://user:pass@127.0.0.1/dummy"
 
+# TODO Fix defaults for OS
+ENV font_proximanovasoft_url https://assets-sharetribecom.sharetribe.com/webfonts/proximanovasoft/
+ENV ss_pika_location //assets-sharetribecom.sharetribe.com/webfonts/ss-pika/ss-pika.css
+ENV ss_social_location //assets-sharetribecom.sharetribe.com/webfonts/ss-pika/ss-social.css
+ENV icon_pack ss-pika
+
 RUN secret_key_base=$(ruby -r securerandom -e "puts SecureRandom.hex(64)") bundle exec rake assets:precompile
 
 EXPOSE 3000
