@@ -24,9 +24,7 @@ services:
       - convox.deployment.maximum=200
     command: QUEUES=default,paperclip,mailers bundle exec rake jobs:work
   sphinx:
-    build:
-      context: .
-      dockerfile: Dockerfile.search
+    build: .
     labels:
       - convox.deployment.minimum=0
       - convox.deployment.maximum=100

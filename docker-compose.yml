@@ -20,12 +20,11 @@ services:
   memcached:
     image: memcached:latest
   sphinx:
-    build:
-      context: .
-      dockerfile: Dockerfile.search
+    build: .
     ports:
       - "9306:9306"
     env_file: .env
+    command: script/startup-search.sh
 networks:
   default:
     external:

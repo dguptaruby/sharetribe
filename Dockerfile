@@ -41,6 +41,11 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 # Sharetribe
 #
 
+# Install sphinxsearch from jessie-backports
+RUN echo "deb http://httpredir.debian.org/debian jessie-backports main" >> /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get install -y sphinxsearch
+
 # Install latest bundler
 RUN gem install bundler
 
@@ -82,7 +87,10 @@ RUN mkdir -p \
        app/assets/webpack \
        client/app/ \
        public/assets \
-       public/webpack
+       public/webpack \
+    && chown -R app:app \
+       config \
+       db # For sphinx
 USER app
 
 ENV DATABASE_URL "mysql2://user:pass@127.0.0.1/dummy"
