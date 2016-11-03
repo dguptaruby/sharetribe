@@ -5,8 +5,27 @@ services:
     ports:
       - "3000:3000"
     env_file: .env
+    environment:
+      - SPHINX_HOST=sphinx
+  worker:
+    build: .
+    env_file: .env
+    environment:
+      - SPHINX_HOST=search
+      - QUEUES=default,paperclip,mailers
+      - MAGICK_MAP_LIMIT=64MiB
+      - MAGICK_MEMORY_LIMIT=256MiB
+      - MAGICK_TIME_LIMIT=30
+    command: bundle exec rake jobs:work
   memcached:
     image: memcached:latest
+  sphinx:
+    build:
+      context: .
+      dockerfile: Dockerfile.search
+    ports:
+      - "9306:9306"
+    env_file: .env
 networks:
   default:
     external:

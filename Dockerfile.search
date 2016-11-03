@@ -59,42 +59,21 @@ USER app
 
 RUN bundle install --deployment --without test,development
 
-COPY package.json /opt/app/
-COPY client/package.json /opt/app/client/
-COPY client/customloaders/customfileloader /opt/app/client/customloaders/customfileloader
-
-ENV NODE_ENV production
-ENV NPM_CONFIG_LOGLEVEL error
-ENV NPM_CONFIG_PRODUCTION true
-
-RUN npm install
-
 COPY . /opt/app
 
 # Fix ownership of directories that need to be writable
 USER root
-RUN mkdir -p \
-          app/assets/webpack \
-          public/assets \
-          public/webpack \
-    && chown -R app:app \
-       app/assets/javascripts \
-       app/assets/webpack \
-       client/app/ \
-       public/assets \
-       public/webpack
+RUN chown app:app \
+    config \
+    db
+
+# Install sphinxsearch from jessie-backports
+RUN echo "deb http://httpredir.debian.org/debian jessie-backports main" >> /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get install -y sphinxsearch
+
 USER app
 
-ENV DATABASE_URL "mysql2://user:pass@127.0.0.1/dummy"
+EXPOSE 9306
 
-# TODO Fix defaults for OS
-ENV font_proximanovasoft_url https://assets-sharetribecom.sharetribe.com/webfonts/proximanovasoft/
-ENV ss_pika_location //assets-sharetribecom.sharetribe.com/webfonts/ss-pika/ss-pika.css
-ENV ss_social_location //assets-sharetribecom.sharetribe.com/webfonts/ss-pika/ss-social.css
-ENV icon_pack ss-pika
-
-RUN secret_key_base=$(ruby -r securerandom -e "puts SecureRandom.hex(64)") bundle exec rake assets:precompile
-
-EXPOSE 3000
-
-CMD ["script/startup.sh"]
+CMD ["script/startup-search.sh"]

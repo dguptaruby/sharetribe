@@ -23,3 +23,13 @@ services:
       - convox.deployment.minimum=0
       - convox.deployment.maximum=200
     command: QUEUES=default,paperclip,mailers bundle exec rake jobs:work
+  sphinx:
+    build:
+      context: .
+      dockerfile: Dockerfile.search
+    labels:
+      - convox.deployment.minimum=0
+      - convox.deployment.maximum=100
+      - convox.idle.timeout=60
+    ports:
+      - "9306:9306"
