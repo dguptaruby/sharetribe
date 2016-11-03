@@ -11,7 +11,7 @@ services:
     build: .
     env_file: .env
     environment:
-      - SPHINX_HOST=search
+      - SPHINX_HOST=sphinx
       - QUEUES=default,paperclip,mailers
       - MAGICK_MAP_LIMIT=64MiB
       - MAGICK_MEMORY_LIMIT=256MiB
