@@ -31,3 +31,4 @@ services:
       - convox.idle.timeout=60
     ports:
       - "9306:9306"
+    command: script/startup-search.sh
