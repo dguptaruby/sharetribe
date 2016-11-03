@@ -2,4 +2,6 @@
 
 bundle exec rake ts:configure ts:index
 
-exec bundle exec rake ts:start
+bundle exec rake ts:start
+
+exec sleep 3600
